@@ -1,34 +1,45 @@
-class Stack:
-    def __init__(self):
-        self.stack = []
+class StackArray:
+    def __init__(self, size):
+        self.size = size
+        self.stack = [None] * size
+        self.top = -1
 
-    def push(self, value):
-        self.stack.append(value)
-        print(value, "pushed")
+    def push(self, item):
+        if self.top == self.size - 1:
+            print("Stack Overflow")
+        else:
+            self.top += 1
+            self.stack[self.top] = item
+            print(item, "pushed into the stack")
 
     def pop(self):
-        if len(self.stack) == 0:
-            print("Stack is Empty")
+        if self.top == -1:
+            print("Stack Underflow")
         else:
-            print(self.stack.pop(), "popped")
+            item = self.stack[self.top]
+            self.stack[self.top] = None
+            self.top -= 1
+            print(item, "popped from the stack")
 
     def peek(self):
-        if len(self.stack) == 0:
-            print("Stack is Empty")
+        if self.top == -1:
+            print("Stack is empty")
         else:
-            print("Top element:", self.stack[-1])
+            print("Top element:", self.stack[self.top])
 
     def display(self):
-        if len(self.stack) == 0:
-            print("Stack is Empty")
+        if self.top == -1:
+            print("Stack is empty")
         else:
-            print("Stack elements:", self.stack[::-1])
+            print("Stack elements (top to bottom):")
+            for i in range(self.top, -1, -1):
+                print(self.stack[i])
 
-
-s = Stack()
+size = int(input("Enter size of stack: "))
+s = StackArray(size)
 
 while True:
-    print("\n--- STACK MENU ---")
+    print("\n--- STACK USING ARRAY ---")
     print("1. Push")
     print("2. Pop")
     print("3. Peek")
@@ -38,21 +49,16 @@ while True:
     choice = int(input("Enter your choice: "))
 
     if choice == 1:
-        value = int(input("Enter value: "))
-        s.push(value)
-
+        item = int(input("Enter element to push: "))
+        s.push(item)
     elif choice == 2:
         s.pop()
-
     elif choice == 3:
         s.peek()
-
     elif choice == 4:
         s.display()
-
     elif choice == 5:
-        print("Program Ended")
+        print("Exiting program...")
         break
-
     else:
-        print("Invalid choice")
+        print("Invalid choice!. Try again.")

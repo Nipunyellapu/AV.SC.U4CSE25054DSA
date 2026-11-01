@@ -51,7 +51,6 @@ class Queue:
 
             print()
 
-
 q = Queue()
 
 while True:

@@ -1,34 +1,52 @@
 class Queue:
-    def __init__(self):
-        self.queue = []
+    def __init__(self, size=5):
+        self.size = size
+        self.queue = [None] * size
+        self.front = -1
+        self.rear = -1
 
-    def enqueue(self, value):
-        self.queue.append(value)
-        print(value, "inserted")
+    def enqueue(self, x):
+        if self.rear == self.size - 1:
+            print("Queue Overflow")
+        else:
+            if self.front == -1:
+                self.front = 0
+            self.rear += 1
+            self.queue[self.rear] = x
+            print(f"{x} inserted into the queue")
 
     def dequeue(self):
-        if len(self.queue) == 0:
-            print("Queue is Empty")
+        if self.front == -1 or self.front > self.rear:
+            print("Queue Underflow")
         else:
-            print(self.queue.pop(0), "deleted")
+            x = self.queue[self.front]
+            self.queue[self.front] = None
+            self.front += 1
+            print(f"{x} deleted from the queue")
+
+            if self.front > self.rear:
+                self.front = -1
+                self.rear = -1
 
     def peek(self):
-        if len(self.queue) == 0:
-            print("Queue is Empty")
+        if self.front == -1 or self.front > self.rear:
+            print("Queue is empty")
         else:
-            print("Front element:", self.queue[0])
+            print("Front element:", self.queue[self.front])
 
     def display(self):
-        if len(self.queue) == 0:
-            print("Queue is Empty")
+        if self.front == -1 or self.front > self.rear:
+            print("Queue is empty")
         else:
-            print("Queue elements:", self.queue)
+            print("The elements of the queue are:")
+            for i in range(self.front, self.rear + 1):
+                print(self.queue[i])
 
-
-q = Queue()
+size = int(input("Enter the size of Queue: "))
+q = Queue(size)
 
 while True:
-    print("\n--- QUEUE MENU ---")
+    print("\n----- Queue Menu -----")
     print("1. Enqueue")
     print("2. Dequeue")
     print("3. Peek")
@@ -38,21 +56,16 @@ while True:
     choice = int(input("Enter your choice: "))
 
     if choice == 1:
-        value = int(input("Enter value: "))
-        q.enqueue(value)
-
+        item = int(input("Enter the element to enqueue: "))
+        q.enqueue(item)
     elif choice == 2:
         q.dequeue()
-
     elif choice == 3:
         q.peek()
-
     elif choice == 4:
         q.display()
-
     elif choice == 5:
-        print("Program Ended")
+        print("Exiting Program")
         break
-
     else:
         print("Invalid choice")

@@ -3,49 +3,44 @@ class Node:
         self.data = data
         self.next = None
 
-
-class Stack:
+class StackLinkedList:
     def __init__(self):
         self.top = None
 
-    def push(self, value):
-        new_node = Node(value)
+    def push(self, data):
+        new_node = Node(data)
         new_node.next = self.top
         self.top = new_node
-        print(value, "pushed")
+        print(data, "pushed into the stack")
 
     def pop(self):
         if self.top is None:
-            print("Stack is Empty")
+            print("Stack Underflow")
         else:
-            print(self.top.data, "popped")
+            popped = self.top.data
             self.top = self.top.next
+            print(popped, "popped from the stack")
 
     def peek(self):
         if self.top is None:
-            print("Stack is Empty")
+            print("Stack is empty")
         else:
             print("Top element:", self.top.data)
 
     def display(self):
         if self.top is None:
-            print("Stack is Empty")
+            print("Stack is empty")
         else:
+            print("Stack elements (top to bottom):")
             temp = self.top
-
-            print("Stack elements:", end=" ")
-
-            while temp is not None:
-                print(temp.data, end=" ")
+            while temp:
+                print(temp.data)
                 temp = temp.next
 
-            print()
-
-
-s = Stack()
+sll = StackLinkedList()
 
 while True:
-    print("\n--- STACK MENU ---")
+    print("\n--- STACK USING LINKED LIST ---")
     print("1. Push")
     print("2. Pop")
     print("3. Peek")
@@ -55,21 +50,16 @@ while True:
     choice = int(input("Enter your choice: "))
 
     if choice == 1:
-        value = int(input("Enter value: "))
-        s.push(value)
-
+        item = int(input("Enter element to push: "))
+        sll.push(item)
     elif choice == 2:
-        s.pop()
-
+        sll.pop()
     elif choice == 3:
-        s.peek()
-
+        sll.peek()
     elif choice == 4:
-        s.display()
-
+        sll.display()
     elif choice == 5:
-        print("Program Ended")
+        print("Exiting program...")
         break
-
     else:
-        print("Invalid choice")
+        print("Invalid choice!. Try again.")
